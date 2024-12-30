@@ -25,10 +25,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
+    <ProjectReference Include="..\FluentUI.Demo.Generators\FluentUI.Demo.Generators.csproj" />
   </ItemGroup>
 
 </Project>

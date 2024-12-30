@@ -48,6 +48,13 @@ public class CodeCommentsGenerator : IIncrementalGenerator
             members.AddRange(xml.Descendants("member"));
         }
 
+        var code = GenerateCodeComments(members);
+
+        context.AddSource($"CodeComments.g.cs", SourceText.From(code, Encoding.UTF8));
+    }
+
+    public static string GenerateCodeComments(List<XElement> members)
+    {
         StringBuilder sb = new();
 
         sb.AppendLine("#pragma warning disable CS1591");
@@ -85,7 +92,7 @@ public class CodeCommentsGenerator : IIncrementalGenerator
 
             sb.Remove(lastComma, 1);
         }
-        
+
         sb.AppendLine("        };");
         sb.AppendLine();
         sb.AppendLine("        KeyValuePair<string, string> foundPair = summaryData.FirstOrDefault(x => x.Key.Equals(name));");
@@ -124,7 +131,7 @@ public class CodeCommentsGenerator : IIncrementalGenerator
         sb.AppendLine();
         sb.AppendLine("}");
 
-        context.AddSource($"CodeComments.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+        return sb.ToString();
     }
 
     private static string CleanupParamName(string value)
